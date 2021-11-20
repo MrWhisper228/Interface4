@@ -11,6 +11,7 @@ public class User implements IPerson, IUser {
     private int ip;
     private String login;
     private String password;
+    private boolean isDeleted;
 
     public User(String name, Long phoneNum, String address, int ip, String login, String password) {
         this.setName(name);
@@ -24,6 +25,18 @@ public class User implements IPerson, IUser {
         contacts[1] = address;
         contacts[2] = phoneNum.toString();
 
+    }
+
+    /**
+     * deleted status
+     * @return
+     */
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public User() {
@@ -95,17 +108,32 @@ public class User implements IPerson, IUser {
         return contacts.toString();
     }
 
+    /**
+     * connects user for selected ip
+     * @param ip ip for connection
+     * @return connection status
+     */
     @Override
     public boolean Connect(int ip) {
         return true;
     }
 
+    /**
+     * authorization process
+     * @param login login used
+     * @param password password used
+     * @return logining status
+     */
     @Override
     public boolean Login(String login, String password) {
         return login.toLowerCase(Locale.ROOT).equals(getLogin().toLowerCase()) && password.hashCode() == getPassword().hashCode() ? true : false;
 
     }
 
+    /**
+     * cast user to string
+     * @return
+     */
     @Override
     public String toString() {
         return "User{" +
@@ -113,6 +141,7 @@ public class User implements IPerson, IUser {
                 ", ip=" + ip +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", isDeleted='" + isDeleted + '\'' +
                 '}';
     }
 }
